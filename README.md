@@ -1,6 +1,6 @@
 # 🚀 Angular + Bootstrap
 
-Aplicación en Angular estructurada modularmente mediante componentes y navegación por rutas (`routerLink` y `router-outlet`). El proyecto cuenta con un componente `lista` para visualizar los alumnos registrados y un componente `agregar` con un formulario para incorporar nuevos estudiantes. El manejo del estado y la persistencia de datos compartida entre componentes se gestiona de manera centralizada en el archivo `store.ts`. La interfaz gráfica está estilizada utilizando las clases globales de Bootstrap.
+Aplicación en Angular modularizada mediante componentes (`agregar` y `lista`), navegación por rutas y consumo de datos desvinculado a través de un servicio (`estudiante.service.ts`). A diferencia de manejar el estado local o en un archivo estático, esta arquitectura implementa un servicio inyectable que simula las peticiones HTTP a una API REST leyendo los datos iniciales desde un archivo local `estudiante.json`. La interfaz se encuentra maquetada con estilos y componentes de Bootstrap.
 
 ---
 
@@ -8,6 +8,8 @@ Aplicación en Angular estructurada modularmente mediante componentes y navegaci
 
 ```text
 .
+├── public/
+│   └── estudiante.json         # Mock API local con datos iniciales en formato JSON
 ├── src/
 │   ├── app/
 │   │   ├── agregar/            # Componente formulario para registrar estudiantes
@@ -15,18 +17,19 @@ Aplicación en Angular estructurada modularmente mediante componentes y navegaci
 │   │   │   ├── agregar.html
 │   │   │   ├── agregar.spec.ts
 │   │   │   └── agregar.ts
-│   │   ├── lista/              # Componente para visualizar la tabla de estudiantes
+│   │   ├── estudiante/         # Servicio inyectable para la gestión de datos
+│   │   │   └── estudiante.service.ts
+│   │   ├── lista/              # Componente para listar y visualizar estudiantes
 │   │   │   ├── lista.css
 │   │   │   ├── lista.html
 │   │   │   ├── lista.spec.ts
 │   │   │   └── lista.ts
 │   │   ├── app.config.ts       # Configuración global de la aplicación
 │   │   ├── app.css             # Estilos del componente principal
-│   │   ├── app.html            # Plantilla con navegación y router-outlet
+│   │   ├── app.html            # Plantilla con menú de navegación y router-outlet
 │   │   ├── app.routes.ts       # Definición de rutas (/lista y /agregar)
 │   │   ├── app.spec.ts         # Pruebas unitarias
-│   │   ├── app.ts              # Lógica del componente raíz
-│   │   └── store.ts            # Estado centralizado / Store de datos
+│   │   └── app.ts              # Componente raíz
 │   ├── index.html              # Archivo HTML raíz
 │   ├── main.ts                 # Punto de entrada de la aplicación
 │   └── styles.css              # Importación global de Bootstrap
@@ -35,6 +38,7 @@ Aplicación en Angular estructurada modularmente mediante componentes y navegaci
 ├── tsconfig.json               # Configuración de TypeScript
 └── README.md
 ```
+
 ---
 
 ## ⚙️ Configuración del Entorno
@@ -56,15 +60,20 @@ cd proyecto
 
 ---
 
-### 3. Generación de Componentes
-Crear los componentes independientes para el formulario y el listado:
+### 3. Generación del Servicio y Componentes
+Crear el servicio inyectable dentro de su respectiva carpeta y los componentes independientes:
 ```bash
 ng g c component
 ```
 
 ---
 
-### 4. Instalación e Importación de Bootstrap
+### 4. Creación de la Mock API Local
+Crear el archivo `datos.json` dentro del directorio `public/` para simular la fuente de datos externa.
+
+---
+
+### 5. Instalación e Importación de Bootstrap
 Dentro del directorio del proyecto, instalar la librería de Bootstrap:
 ```bash
 npm install bootstrap
@@ -77,7 +86,7 @@ Añadir la importación al inicio del archivo `src/styles.css`:
 
 ---
 
-### 5. Ejecución del Servidor Local
+### 6. Ejecución del Servidor Local
 Iniciar el servidor de desarrollo local:
 ```bash
 ng serve
