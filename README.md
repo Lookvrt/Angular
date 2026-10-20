@@ -1,6 +1,6 @@
 # 🚀 Angular + Bootstrap
 
-Aplicación en Angular que realiza peticiones HTTP a una API pública de imágenes de perros. El proyecto cuenta con un componente `perro` y un servicio dedicado (`perro.service.ts`) que solicita un lote de 6 imágenes aleatorias mediante un endpoint parametrizado. La interfaz incluye un botón interactivo que vuelve a consultar la API en tiempo real para refrescar las imágenes de la pantalla, maquetadas dentro de una cuadrícula de tarjetas de Bootstrap.
+Aplicación en Angular para el listado y filtrado dinámico de un catálogo de productos obtenido desde una API REST externa. La arquitectura utiliza un servicio inyectable (`producto.service.ts`) que gestiona las peticiones `HTTP GET`. En el componente `productos`, se implementa la lógica de filtrado dinámico para la búsqueda de productos por nombre y la segmentación por stock insuficiente, presentando los datos mediante tarjetas y tablas estilizadas con Bootstrap.
 
 ---
 
@@ -10,24 +10,26 @@ Aplicación en Angular que realiza peticiones HTTP a una API pública de imágen
 .
 ├── src/
 │   ├── app/
-│   │   ├── perro/               # Componente para la galería de imágenes
-│   │   │   ├── perro.css
-│   │   │   ├── perro.html       # Plantilla con el botón de refresco y tarjetas
-│   │   │   ├── perro.service.ts # Servicio HTTP para consumir la API pública
-│   │   │   ├── perro.spec.ts
-│   │   │   └── perro.ts         # Lógica del componente y llamada a la API
-│   │   ├── app.config.ts        # Configuración global de la aplicación (HttpClient)
-│   │   ├── app.css             # Estilos del componente principal
-│   │   ├── app.html            # Plantilla raíz con el componente perro
-│   │   ├── app.routes.ts       # Definición de rutas
-│   │   ├── app.spec.ts         # Pruebas unitarias
-│   │   └── app.ts              # Componente raíz
-│   ├── index.html              # Archivo HTML raíz
-│   ├── main.ts                 # Punto de entrada de la aplicación
-│   └── styles.css              # Importación global de Bootstrap
-├── angular.json                # Configuración del workspace de Angular
-├── package.json                # Dependencias del proyecto
-├── tsconfig.json               # Configuración de TypeScript
+│   │   ├── productos/                  # Componente para el catálogo de productos
+│   │   │   ├── productos.css
+│   │   │   ├── productos.html          # Plantilla con campo de búsqueda, filtros y tarjetas
+│   │   │   ├── productos.spec.ts
+│   │   │   └── productos.ts            # Lógica de filtrado por nombre y stock insuficiente
+│   │   ├── services/                   # Servicio de integración con la API
+│   │   │   ├── producto.service.ts      # Servicio HTTP con peticiones GET y Observables
+│   │   │   └── producto.service.spec.ts
+│   │   ├── app.config.ts                # Configuración global (proveedor HttpClient)
+│   │   ├── app.css                     # Estilos del componente raíz
+│   │   ├── app.html                    # Plantilla raíz
+│   │   ├── app.routes.ts               # Definición de rutas
+│   │   ├── app.spec.ts                 # Pruebas unitarias
+│   │   └── app.ts                      # Componente raíz
+│   ├── index.html                      # Archivo HTML raíz
+│   ├── main.ts                         # Punto de entrada de la aplicación
+│   └── styles.css                      # Importación global de Bootstrap
+├── angular.json                        # Configuración del workspace de Angular
+├── package.json                        # Dependencias del proyecto
+├── tsconfig.json                       # Configuración de TypeScript
 └── README.md
 ```
 
@@ -48,17 +50,19 @@ npm install -g @angular/cli
 ### 2. Creación del Proyecto e Ingreso al Directorio
 Generar la estructura base de la aplicación e ingresar a la carpeta creada:
 ```bash
-ng proyecto
+ng new proyecto
 cd proyecto
 ```
 
 ---
 
 ### 3. Generación del Componente y Servicio
-Crear el componente y el servicio dentro de la carpeta del componente:
+Crear el componente y el servicio inyectable:
 ```bash
 ng g c component
+ng g s services/services.service
 ```
+
 ---
 
 ### 4. Instalación e Importación de Bootstrap
