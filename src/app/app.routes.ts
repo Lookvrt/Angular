@@ -1,9 +1,7 @@
 import { Routes } from '@angular/router';
-import { Lista } from './lista/lista';
-import { Agregar } from './agregar/agregar';
+import { Perro } from './perro/perro';
 
 export const routes: Routes = [
-    { path: '', component: Lista },
-    { path: 'agregar', component: Agregar },
-    { path: '**', redirectTo: '' }
+    { path: 'perro', component: Perro },
+    { path: '', redirectTo: 'perro', pathMatch: 'full' }
 ];

@@ -2,24 +2,15 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Api rest</title>
 </head>
 
 <body>
-  <nav class="navbar navbar-dark bg-dark mb-4">
     <div class="container">
-      <span class="navbar-brand">{{ titulo }}</span>
-      <div>
-        <a class="btn btn-outline-light btn-sm" routerLink="/">Lista</a>
-        <a class="btn btn-outline-light btn-sm ms-2" routerLink="/agregar">Agregar</a>
-      </div>
+        <router-outlet></router-outlet>
     </div>
-  </nav>
-  <div class="container">
-    <router-outlet></router-outlet>
-  </div>
 </body>
 
 </html>

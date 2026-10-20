@@ -1,6 +1,6 @@
 # 🚀 Angular + Bootstrap
 
-Aplicación en Angular modularizada mediante componentes (`agregar` y `lista`), navegación por rutas y consumo de datos desvinculado a través de un servicio (`estudiante.service.ts`). A diferencia de manejar el estado local o en un archivo estático, esta arquitectura implementa un servicio inyectable que simula las peticiones HTTP a una API REST leyendo los datos iniciales desde un archivo local `estudiante.json`. La interfaz se encuentra maquetada con estilos y componentes de Bootstrap.
+Aplicación en Angular que realiza peticiones HTTP a una API pública de imágenes de perros. El proyecto cuenta con un componente `perro` y un servicio dedicado (`perro.service.ts`) que solicita un lote de 6 imágenes aleatorias mediante un endpoint parametrizado. La interfaz incluye un botón interactivo que vuelve a consultar la API en tiempo real para refrescar las imágenes de la pantalla, maquetadas dentro de una cuadrícula de tarjetas de Bootstrap.
 
 ---
 
@@ -8,26 +8,18 @@ Aplicación en Angular modularizada mediante componentes (`agregar` y `lista`), 
 
 ```text
 .
-├── public/
-│   └── estudiante.json         # Mock API local con datos iniciales en formato JSON
 ├── src/
 │   ├── app/
-│   │   ├── agregar/            # Componente formulario para registrar estudiantes
-│   │   │   ├── agregar.css
-│   │   │   ├── agregar.html
-│   │   │   ├── agregar.spec.ts
-│   │   │   └── agregar.ts
-│   │   ├── estudiante/         # Servicio inyectable para la gestión de datos
-│   │   │   └── estudiante.service.ts
-│   │   ├── lista/              # Componente para listar y visualizar estudiantes
-│   │   │   ├── lista.css
-│   │   │   ├── lista.html
-│   │   │   ├── lista.spec.ts
-│   │   │   └── lista.ts
-│   │   ├── app.config.ts       # Configuración global de la aplicación
+│   │   ├── perro/               # Componente para la galería de imágenes
+│   │   │   ├── perro.css
+│   │   │   ├── perro.html       # Plantilla con el botón de refresco y tarjetas
+│   │   │   ├── perro.service.ts # Servicio HTTP para consumir la API pública
+│   │   │   ├── perro.spec.ts
+│   │   │   └── perro.ts         # Lógica del componente y llamada a la API
+│   │   ├── app.config.ts        # Configuración global de la aplicación (HttpClient)
 │   │   ├── app.css             # Estilos del componente principal
-│   │   ├── app.html            # Plantilla con menú de navegación y router-outlet
-│   │   ├── app.routes.ts       # Definición de rutas (/lista y /agregar)
+│   │   ├── app.html            # Plantilla raíz con el componente perro
+│   │   ├── app.routes.ts       # Definición de rutas
 │   │   ├── app.spec.ts         # Pruebas unitarias
 │   │   └── app.ts              # Componente raíz
 │   ├── index.html              # Archivo HTML raíz
@@ -43,6 +35,8 @@ Aplicación en Angular modularizada mediante componentes (`agregar` y `lista`), 
 
 ## ⚙️ Configuración del Entorno
 
+---
+
 ### 1. Instalación Global de Angular CLI
 Para disponer de las herramientas de comandos `ng` de forma global:
 ```bash
@@ -54,26 +48,20 @@ npm install -g @angular/cli
 ### 2. Creación del Proyecto e Ingreso al Directorio
 Generar la estructura base de la aplicación e ingresar a la carpeta creada:
 ```bash
-ng new proyecto
+ng proyecto
 cd proyecto
 ```
 
 ---
 
-### 3. Generación del Servicio y Componentes
-Crear el servicio inyectable dentro de su respectiva carpeta y los componentes independientes:
+### 3. Generación del Componente y Servicio
+Crear el componente y el servicio dentro de la carpeta del componente:
 ```bash
 ng g c component
 ```
-
 ---
 
-### 4. Creación de la Mock API Local
-Crear el archivo `datos.json` dentro del directorio `public/` para simular la fuente de datos externa.
-
----
-
-### 5. Instalación e Importación de Bootstrap
+### 4. Instalación e Importación de Bootstrap
 Dentro del directorio del proyecto, instalar la librería de Bootstrap:
 ```bash
 npm install bootstrap
@@ -86,7 +74,7 @@ Añadir la importación al inicio del archivo `src/styles.css`:
 
 ---
 
-### 6. Ejecución del Servidor Local
+### 5. Ejecución del Servidor Local
 Iniciar el servidor de desarrollo local:
 ```bash
 ng serve
